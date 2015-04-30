@@ -12,16 +12,13 @@ keywords:
   - vagrant
   - virtualbox
 script: |
-    # update ubuntu
-    sudo apt-get update
-    sudo apt-get install -y build-essential autoconf
-
     # install virtualbox
     echo "Installing virtualbox.."
+    sudo apt-get install -y build-essential autoconf
     # sudo sh -c 'echo "deb http://download.virtualbox.org/virtualbox/debian precise contrib" >> /etc/apt/sources.list'
     wget -q https://www.virtualbox.org/download/oracle_vbox.asc -O- | sudo apt-key add -
     sudo apt-get update
-    sudo apt-get install -y dkms virtualbox-4.3
+    sudo apt-get install -y virtualbox-4.3
 
     # install vagrant
     echo "install vagrant.."
@@ -29,9 +26,14 @@ script: |
     sudo dpkg -i vagrant_1.6.3_x86_64.deb
     vagrant plugin install vagrant-vbguest
 
+    # install pip
+    echo "Install pip.."
+    sudo apt-get install python-setuptools
+    sudo easy_install pip
+
     # install ansible
     echo "Install ansible.."
-    sudo easy_install pip
+    sudo apt-get install software-properties-common
     sudo -H pip install markupsafe
     sudo -H pip install -U ansible
     sudo ansible-galaxy install -r ansible/requirements.txt --force
