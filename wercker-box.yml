@@ -1,6 +1,6 @@
 name: vagrant-ansible
 version: 0.0.1
-inherits: wercker/ruby@1.0.0
+box: wercker/default@0.0.2
 type: service
 platform: ubuntu@12.04
 packages:
