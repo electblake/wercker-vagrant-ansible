@@ -1,0 +1,40 @@
+name: vagrant-ansible
+version: 0.0.3
+inherits: wercker/ruby@1.0.0
+type: main
+platform: ubuntu@12.04
+packages:
+  - pip@latest
+  - vagrant@1.6.3
+  - virtualbox@4.3
+keywords:
+  - pip
+  - vagrant
+  - virtualbox
+no-response-timeout: 25
+script:
+  name: Updating OS..
+  code: |
+      sudo apt-get update
+      sudo apt-get install -y build-essential autoconf
+      sudo gem install dep-selector-libgecode
+script:
+  name: Installing virtualbox..
+  code: |
+      sudo sh -c 'echo "deb http://download.virtualbox.org/virtualbox/debian precise contrib" >> /etc/apt/sources.list'
+      wget -q http://download.virtualbox.org/virtualbox/debian/oracle_vbox.asc -O- | sudo apt-key add -
+      sudo apt-get install -y dkms virtualbox-4.3
+script:
+  name: install vagrant..
+  code: |
+      wget https://dl.bintray.com/mitchellh/vagrant/vagrant_1.6.3_x86_64.deb
+      sudo dpkg -i vagrant_1.6.3_x86_64.deb
+      vagrant plugin install vagrant-vbguest
+script:
+  name: Install ansible..
+  code: |
+      sudo easy_install pip
+      sudo -H pip install markupsafe
+      sudo -H pip install -U ansible
+      sudo ansible-galaxy install -r ansible/requirements.txt --force
+      echo "export PYTHONIOENCODING='utf-8'" >> ~/.bash_profile
