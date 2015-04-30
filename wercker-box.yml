@@ -1,7 +1,7 @@
 name: vagrant-ansible
-version: 0.0.3
+version: 0.0.1
 inherits: wercker/ruby@1.0.0
-type: main
+type: service
 platform: ubuntu@12.04
 packages:
   - pip@latest
