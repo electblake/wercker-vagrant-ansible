@@ -1,5 +1,5 @@
 name: vagrant-ansible
-version: 0.0.1
+version: 0.0.2
 inherits: wercker/default@0.0.2
 type: main
 platform: ubuntu@12.04
@@ -20,6 +20,7 @@ script: |
     echo "Installing virtualbox.."
     sudo sh -c 'echo "deb http://download.virtualbox.org/virtualbox/debian precise contrib" >> /etc/apt/sources.list'
     wget -q http://download.virtualbox.org/virtualbox/debian/oracle_vbox.asc -O- | sudo apt-key add -
+    sudo apt-get update
     sudo apt-get install -y dkms virtualbox-4.3
 
     # install vagrant
